@@ -1,14 +1,19 @@
 {
   "awards": [
     {
-      "name": "一等奖",
+      "name": "联想单肩包",
       "probability": 10,
-      "count": 1
+      "count": 2
     },
     {
-      "name": "二等奖",
-      "probability": 20,
-      "count": 3
+      "name": "联想无线鼠标",
+      "probability": 10,
+      "count": 2
+    },
+    {
+      "name": "社区定制晴雨伞",
+      "probability": 80,
+      "count": 25
     }
   ]
 }
