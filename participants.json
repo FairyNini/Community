@@ -1,7 +1,14 @@
 {
-  "users": [
-    "jixuan",
-    "xiaodan",
-    "wang"
-  ]
+    "users": [
+        {
+            "name": "jixuan",
+            "max_draws": 2,
+            "draws": 0
+        },
+        {
+            "name": "xiaodan",
+            "max_draws": 2,
+            "draws": 0
+        }
+    ]
 }
