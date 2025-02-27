@@ -1,33 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const wheel = document.querySelector('.wheel');
-    const resultDiv = document.getElementById('result');
+    let currentUser = null;
     let awards = [];
 
     // 加载配置文件
     fetch('config.json')
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
             awards = data.awards;
             initWheel();
         });
 
-    // 初始化转盘
+    // 转盘初始化
     function initWheel() {
+        const wheel = document.getElementById('wheel');
         wheel.innerHTML = '';
         awards.forEach((award, index) => {
             const segment = document.createElement('div');
             segment.className = 'segment';
             segment.style.transform = `rotate(${index * (360 / awards.length)}deg)`;
-            segment.style.backgroundColor = getColor(index); // 动态配色
+            segment.style.backgroundColor = getColor(index);
             wheel.appendChild(segment);
         });
     }
 
+    // 用户验证
+    window.checkUser = function() {
+        const username = document.getElementById('username').value.trim();
+        fetch('participants.json')
+            .then(res => res.json())
+            .then(data => {
+                const user = data.users.find(u => u.name === username);
+                if (user && user.draws < user.max_draws) {
+                    currentUser = user;
+                    document.getElementById('draw-btn').disabled = false;
+                    updateDrawsInfo();
+                } else {
+                    alert('验证失败：用户不存在或抽奖次数已用完');
+                }
+            });
+    }
+
     // 抽奖逻辑
     window.startDraw = function() {
+        if (!currentUser || currentUser.draws >= currentUser.max_draws) return;
+        
         const validAwards = awards.filter(a => a.count > 0);
         if (validAwards.length === 0) {
-            resultDiv.innerHTML = "所有奖品已抽完！";
+            alert('所有奖品已抽完！');
             return;
         }
 
@@ -45,13 +64,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         selectedAward.count--;
-        resultDiv.innerHTML = `恭喜获得：${selectedAward.name}`;
-        localStorage.setItem('awards', JSON.stringify(awards));
-    };
+        currentUser.draws++;
+        document.getElementById('result').textContent = `恭喜获得：${selectedAward.name}`;
+        updateDrawsInfo();
+        saveData();
+    }
 
-    // 动态配色函数
+    // 辅助函数
+    function updateDrawsInfo() {
+        document.getElementById('draws-info').textContent = 
+            `剩余抽奖次数：${currentUser.max_draws - currentUser.draws}`;
+    }
+
     function getColor(index) {
         const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'];
         return colors[index % colors.length];
+    }
+
+    function saveData() {
+        // 注意：本地存储需配合后端实现持久化
+        localStorage.setItem('awards', JSON.stringify(awards));
+        localStorage.setItem('participants', JSON.stringify(participants));
     }
 });
