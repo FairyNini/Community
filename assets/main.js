@@ -2,30 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentUser = null;
     let awards = [];
     const wheel = document.getElementById('wheel');
-    
-    // 显示加载状态
-    wheel.innerHTML = '<div class="loading-text">转盘加载中...</div>';
 
-    // 加载配置
-    fetch('config.json')
-        .then(res => {
-            if (!res.ok) throw new Error(`HTTP错误 ${res.status}`);
-            return res.json();
-        })
-        .then(data => {
-            awards = data.awards;
-            if (awards.length < 2) throw new Error('至少需要配置2个奖项');
-            initWheel();
-            wheel.innerHTML = ''; // 成功时清空加载提示
-        })
-        .catch(error => {
-            console.error('初始化失败:', error);
-            wheel.innerHTML = '<div class="error-text">转盘初始化失败<br><small>请联系管理员检查配置文件</small></div>';
-        });
-});
     // ================= 核心功能 =================
-    
-    // 初始化转盘（兼容截图不完整标签）
+    // 初始化转盘
     function initWheel() {
         wheel.innerHTML = '';
         awards.forEach((award, index) => {
@@ -41,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             label.textContent = award.name;
             label.style.transform = `rotate(${90 - (180 / awards.length)}deg)`;
             segment.appendChild(label);
-            
+
             wheel.appendChild(segment);
         });
     }
@@ -50,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('verify-btn').addEventListener('click', () => {
         const username = document.getElementById('username').value.trim();
         
-        // 移除截图中的默认值逻辑
         if (!username) {
             alert('请输入用户名');
             return;
@@ -68,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     alert('用户不存在');
                 }
-            });
+            })
+            .catch(() => alert('验证服务不可用'));
     });
 
     // ================= 抽奖逻辑 =================
@@ -81,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // 概率计算
         const totalProbability = validAwards.reduce((sum, a) => sum + a.probability, 0);
         const random = Math.random() * totalProbability;
         let cumulative = 0;
@@ -94,10 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // 更新数据
         selectedAward.count--;
         currentUser.draws++;
         
-        // 更新界面显示
+        // 更新界面
         document.getElementById('result').textContent = `恭喜获得：${selectedAward.name}`;
         document.getElementById('draws-info').textContent = 
             `剩余抽奖次数：${currentUser.max_draws - currentUser.draws}`;
@@ -107,14 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('config.json')
         .then(res => res.json())
         .then(data => {
-            awards = data.awards;
-            initWheel();
-            
-            // 修正截图HTML中的未闭合标签问题
-            document.querySelector('.wheel-content').appendChild(wheel);
+            if (data.awards?.length >= 2) {
+                awards = data.awards;
+                initWheel();
+            } else {
+                wheel.innerHTML = '<div class="error">至少需要配置2个奖项</div>';
+            }
         })
-        .catch(error => {
-            console.error('配置加载失败:', error);
-            document.getElementById('wheel').innerHTML = '转盘初始化失败';
-        });
+        .catch(() => wheel.innerHTML = '<div class="error">转盘配置加载失败</div>');
 });
