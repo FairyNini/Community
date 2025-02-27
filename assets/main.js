@@ -22,6 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
             wheel.appendChild(segment);
         });
     }
+    function getColor(index) {
+  // 在此处自定义颜色数组（支持HEX/RGB/HSL格式）
+  const colors = [
+    "#FF6B6B", // 红色
+    "#4ECDC4", // 青色
+    "#45B7D1", // 蓝色
+    "#96CEB4", // 绿色
+    "#FFEEAD"  // 黄色
+  ];
+  return colors[index % colors.length]; // 循环使用颜色
+}
 
     // 用户验证
     window.checkUser = function() {
