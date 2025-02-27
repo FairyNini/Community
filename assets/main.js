@@ -2,8 +2,29 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentUser = null;
     let awards = [];
     const wheel = document.getElementById('wheel');
+    
+    // 显示加载状态
+    wheel.innerHTML = '<div class="loading-text">转盘加载中...</div>';
 
+    // 加载配置
+    fetch('config.json')
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP错误 ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            awards = data.awards;
+            if (awards.length < 2) throw new Error('至少需要配置2个奖项');
+            initWheel();
+            wheel.innerHTML = ''; // 成功时清空加载提示
+        })
+        .catch(error => {
+            console.error('初始化失败:', error);
+            wheel.innerHTML = '<div class="error-text">转盘初始化失败<br><small>请联系管理员检查配置文件</small></div>';
+        });
+});
     // ================= 核心功能 =================
+    
     // 初始化转盘（兼容截图不完整标签）
     function initWheel() {
         wheel.innerHTML = '';
