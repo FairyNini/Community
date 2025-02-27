@@ -4,27 +4,7 @@ body {
     background: white;
     margin: 20px;
 }
-/* 加载/错误提示 */
-.loading-text, .error-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-size: 20px;
-    color: #666;
-}
 
-.error-text {
-    color: #dc3545;
-}
-
-.error-text small {
-    display: block;
-    margin-top: 8px;
-    font-size: 14px;
-    color: #888;
-}
 .container {
     max-width: 600px;
     margin: 0 auto;
@@ -42,7 +22,8 @@ body {
     padding: 8px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    width: 120px;
+    width: 160px;
+    font-size: 14px;
 }
 
 button {
@@ -52,6 +33,12 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 #draws-info {
@@ -74,14 +61,16 @@ button {
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     position: relative;
+    overflow: hidden;
 }
 
-/* 奖项标签 */
+/* 转盘文字样式 */
 .segment {
     position: absolute;
     width: 100%;
     height: 100%;
     clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+    transform-origin: 50% 50%;
 }
 
 .award-label {
@@ -95,15 +84,6 @@ button {
     text-orientation: upright;
 }
 
-/* 抽奖按钮 */
-#draw-btn {
-    position: absolute;
-    bottom: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 40px;
-}
-
 /* 结果展示 */
 #result {
     text-align: center;
@@ -112,4 +92,6 @@ button {
     padding: 15px;
     background: #f5f5f5;
     border-radius: 8px;
+    margin: 20px auto;
+    width: 300px;
 }
