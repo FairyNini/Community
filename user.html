@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>社区抽奖系统</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="assets/style.css"> <!-- 修正路径 -->
+    <link rel="icon" href="data:,"> <!-- 禁用默认图标请求 -->
 </head>
 <body>
     <div class="container">
         <!-- 验证区域 -->
         <div class="auth-section">
-            <input type="text" id="username" value="xiaodan" placeholder="用户名">
-            <button id="verify-btn">验证</button>
-            <span id="draws-info">剩余抽奖次数：1</span>
+            <input type="text" id="username" placeholder="请输入用户名"> <!-- 移除默认值 -->
+            <button id="verify-btn">验证身份</button>
+            <span id="draws-info">请先验证身份</span> <!-- 初始提示文本 -->
         </div>
 
         <!-- 转盘主体 -->
         <div class="wheel-container">
             <div class="wheel" id="wheel"></div>
-            <button id="draw-btn">立即抽奖</button>
+            <button id="draw-btn" disabled>立即抽奖</button> <!-- 默认禁用按钮 -->
         </div>
 
         <!-- 抽奖结果 -->
-        <div id="result">恭喜获得：社区定制晴雨伞</div>
+        <div id="result"></div> <!-- 初始为空 -->
     </div>
     <script src="assets/main.js"></script>
 </body>
