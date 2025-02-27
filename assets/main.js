@@ -11,17 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // 转盘初始化
-    function initWheel() {
-        const wheel = document.getElementById('wheel');
-        wheel.innerHTML = '';
-        awards.forEach((award, index) => {
-            const segment = document.createElement('div');
-            segment.className = 'segment';
-            segment.style.transform = `rotate(${index * (360 / awards.length)}deg)`;
-            segment.style.backgroundColor = getColor(index);
-            wheel.appendChild(segment);
-        });
-    }
+   function initWheel() {
+    const wheel = document.getElementById('wheel');
+    wheel.innerHTML = '';
+    
+    awards.forEach((award, index) => {
+        // 创建扇形区块
+        const segment = document.createElement('div');
+        segment.className = 'segment';
+        segment.style.transform = `rotate(${index * (360 / awards.length)}deg)`;
+        segment.style.backgroundColor = getColor(index);
+        
+        // 添加奖品名称标签
+        const label = document.createElement('div');
+        label.className = 'award-label';
+        label.textContent = award.name;
+        label.style.transform = `rotate(${index * (360 / awards.length) + 20}deg)`; // 文字偏移角度
+        segment.appendChild(label);
+        
+        wheel.appendChild(segment);
+    });
+}
     function getColor(index) {
   // 在此处自定义颜色数组（支持HEX/RGB/HSL格式）
   const colors = [
