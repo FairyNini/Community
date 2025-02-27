@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+    <!-- 新增用户验证区域 -->
+<div class="auth-section">
+    <input type="text" id="username" placeholder="请输入您的姓名">
+    <button onclick="checkUser()">验证身份</button>
+    <span id="draws-info" class="info-text">剩余抽奖次数：0</span>
+</div>
+
+<!-- 原抽奖按钮增加限制 -->
+<button onclick="startDraw()" id="draw-btn" disabled>立即抽奖</button>
     <div class="container">
         <h1>好运大转盘</h1>
         <div class="wheel" id="wheel"></div>
