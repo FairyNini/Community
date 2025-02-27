@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>社区抽奖系统</title>
-    <link rel="stylesheet" href="assets/style.css"> <!-- 修正路径 -->
-    <link rel="icon" href="data:,"> <!-- 禁用默认图标请求 -->
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <div class="container">
         <!-- 验证区域 -->
         <div class="auth-section">
-            <input type="text" id="username" placeholder="请输入用户名"> <!-- 移除默认值 -->
+            <input type="text" id="username" placeholder="请输入用户名">
             <button id="verify-btn">验证身份</button>
-            <span id="draws-info">请先验证身份</span> <!-- 初始提示文本 -->
+            <span id="draws-info">请先验证身份</span>
         </div>
 
         <!-- 转盘主体 -->
         <div class="wheel-container">
             <div class="wheel" id="wheel"></div>
-            <button id="draw-btn" disabled>立即抽奖</button> <!-- 默认禁用按钮 -->
+            <button id="draw-btn" disabled>立即抽奖</button>
         </div>
 
         <!-- 抽奖结果 -->
-        <div id="result"></div> <!-- 初始为空 -->
+        <div id="result"></div>
     </div>
     <script src="assets/main.js"></script>
 </body>
