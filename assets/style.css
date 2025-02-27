@@ -1,27 +1,69 @@
 /* 基础样式 */
 body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 20px auto;
-  background: #f5f5f5;
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 20px;
 }
 
-/* 转盘容器 */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* 转盘样式 */
 .wheel {
-  width: 400px;
-  height: 400px;
-  background: #fff;
-  border-radius: 50%;
-  margin: 20px auto;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 400px;
+    height: 400px;
+    background: #fff;
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
-/* 抽奖按钮 */
+/* 按钮样式 */
 button {
-  padding: 12px 24px;
-  background: #28a745;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
+    padding: 12px 24px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:disabled {
+    background: #cccccc;
+}
+
+/* 用户验证区域 */
+.auth-section {
+    margin: 20px 0;
+}
+
+input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+
+#draws-info {
+    color: #666;
+    display: block;
+    margin-top: 10px;
+}
+
+/* 结果提示 */
+#result {
+    color: #333;
+    font-size: 18px;
+    margin-top: 20px;
+    min-height: 24px;
 }
