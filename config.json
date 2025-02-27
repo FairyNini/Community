@@ -1,0 +1,14 @@
+{
+  "awards": [
+    {
+      "name": "一等奖",
+      "probability": 10,
+      "count": 1
+    },
+    {
+      "name": "二等奖",
+      "probability": 20,
+      "count": 3
+    }
+  ]
+}

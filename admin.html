@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>抽奖管理后台</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>抽奖配置管理</h1>
+        
+        <!-- 奖项管理 -->
+        <div class="section">
+            <h2>奖项配置</h2>
+            <div id="awards-editor">
+                <!-- 动态生成的配置界面 -->
+            </div>
+            <button onclick="addAward()">+ 新增奖项</button>
+        </div>
+
+        <!-- 参与者管理 -->
+        <div class="section">
+            <h2>参与者名单</h2>
+            <textarea id="participants" rows="10"></textarea>
+            <button onclick="saveParticipants()">保存名单</button>
+        </div>
+    </div>
+    <script src="assets/main.js"></script>
+</body>
+</html>
